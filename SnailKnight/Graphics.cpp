@@ -141,15 +141,21 @@ SDL_Rect* Graphics::CenterTextureRectX(SDL_Texture * texture, int y)
 }
 
 void Graphics::DrawTexture(SDL_Texture * texture) {
-	SDL_RenderCopy(mRenderer, texture, NULL, NULL);
+	//SDL_RenderCopy(mRenderer, texture, NULL, NULL);
+	Graphics::DrawTexture(texture, NULL, 0);
 }
 
 void Graphics::DrawTexture(SDL_Texture * texture, SDL_Rect* rect) {
-	SDL_RenderCopy(mRenderer, texture, NULL, rect);
+	//SDL_RenderCopy(mRenderer, texture, NULL, rect);
+	Graphics::DrawTexture(texture, rect, 0);
 }
 
-void Graphics::DrawTextureAtLocation(SDL_Texture * texture, SDL_Rect* spriterect, SDL_Rect* rect) {
-	SDL_RenderCopy(mRenderer, texture, spriterect, rect);
+void Graphics::DrawTexture(SDL_Texture * texture, SDL_Rect* rect, double angle) {
+	SDL_RenderCopyEx(mRenderer, texture, NULL, rect, angle, NULL, SDL_RendererFlip::SDL_FLIP_NONE);
+}
+
+void Graphics::DrawTextureAtLocation(SDL_Texture * texture, SDL_Rect* spriterect, SDL_Rect* rect, double angle) {
+	SDL_RenderCopyEx(mRenderer, texture, spriterect, rect, angle, NULL, SDL_RendererFlip::SDL_FLIP_NONE);
 }
 
 void Graphics::DrawLine(int r, int g, int b, int x1, int y1, int x2, int y2) {

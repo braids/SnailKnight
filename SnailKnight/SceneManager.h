@@ -5,6 +5,7 @@
 #include <vector>
 #include "Assets.h"
 #include "Timer.h"
+#include "Box2D\Box2D.h"
 
 // Class forward decs
 class Scene;
@@ -48,6 +49,8 @@ public:
 
 //// Title screen scene class
 class TitleScreen : public Scene {
+protected:
+
 public:
 	// Scene ctor
 	TitleScreen();

@@ -10,19 +10,25 @@ TitleScreen::TitleScreen() {
 void TitleScreen::LoadAssets() {
 	// Load images into Assets
 	this->mAssets->images.SnailKnight = { Assets::Instance()->GetTexture("snailknight_proto.png"), Graphics::CreateRect(35, 26, 10, 10) };
+	this->mAssets->images.b25x25 = { Assets::Instance()->GetTexture("25x25.png"), Graphics::CreateRect(25, 25, 0, 0) };
+	this->mAssets->images.b100x25 = { Assets::Instance()->GetTexture("100x25.png"), Graphics::CreateRect(100, 25, 0, 0) };
 }
 
 void TitleScreen::SceneStart() {
-	// Eventually things will go here
+	
 }
 
 void TitleScreen::HandleEvent(SDL_Event * Event) {
 	switch (Event->type) {
 	case SDL_KEYDOWN:
-		if(Event->key.keysym.sym == SDLK_ESCAPE) mManager->quitGame = true;
+		if (Event->key.keysym.sym == SDLK_ESCAPE) this->mManager->quitGame = true;
+
+		if (Event->key.keysym.sym == SDLK_r && Event->key.repeat == 0) SceneStart();
+
 		break;
 
 	case SDL_KEYUP:
+
 		break;
 	
 	default:
@@ -31,7 +37,7 @@ void TitleScreen::HandleEvent(SDL_Event * Event) {
 }
 
 void TitleScreen::Update(Uint32 timeStep) {
-	// Eventually things will go here
+
 }
 
 void TitleScreen::Render() {
