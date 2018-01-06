@@ -63,13 +63,17 @@ public:
 //// Scene manager class
 class SceneManager{
 protected:
+	// Timer Vars
+	Uint32			currTick;
+	Uint32			lastTick;
+	Uint32			timeStep;
+
 	Graphics*			mGraphics;	// Scene renderer pointer
 	Scene*				mCurrent;	// Current active scene
 	Scene*				mNext;		// Next active scene
 	std::vector<Scene*>	sceneList;	// Vector of all scenes
 
 public:
-	Uint32 timeStep = 0;
 	bool quitGame;
 
 	// Scene manager ctor/dtor
@@ -87,7 +91,8 @@ public:
 	bool Init();
 	void Event(SDL_Event* Event);
 	void Render();
-	void StartScene(SceneName scene);	
+	void StartScene(SceneName scene);
+	void UpdateTicks();
 };
 
 #endif

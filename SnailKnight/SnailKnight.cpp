@@ -3,11 +3,6 @@
 SnailKnight::SnailKnight() {
 	// Set game running/playing flags
 	Running = true;
-
-	// Set timer values
-	currTick = 0;
-	lastTick = 0;
-	timeStep = 0;
 }
 
 int SnailKnight::OnExecute() {
@@ -20,10 +15,8 @@ int SnailKnight::OnExecute() {
 
 	// Main loop
 	while (Running) {
-		// Update timeStep by # of ticks from last cycle
-		lastTick = currTick;
-		currTick = SDL_GetTicks();
-		timeStep = currTick - lastTick;
+		// Update global ticks
+		scene.UpdateTicks();
 
 		// Check events
 		while (SDL_PollEvent(&Event)) {

@@ -8,6 +8,11 @@ SceneManager::SceneManager() {
 
 	// We're not quitting yet
 	this->quitGame = false;
+
+	// Set timer values
+	currTick = 0;
+	lastTick = 0;
+	timeStep = 0;
 }
 
 SceneManager::~SceneManager() {
@@ -76,4 +81,11 @@ void SceneManager::StartScene(SceneName scene) {
 
 	// Run scene update
 	this->Update();
+}
+
+void SceneManager::UpdateTicks() {
+	// Update timeStep by # of ticks from last cycle
+	this->lastTick = this->currTick;
+	this->currTick = SDL_GetTicks();
+	this->timeStep = this->currTick - this->lastTick;
 }
