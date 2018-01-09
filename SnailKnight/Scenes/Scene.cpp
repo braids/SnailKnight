@@ -1,6 +1,6 @@
 #include "Assets.h"
 #include "Graphics.h"
-#include "SceneManager.h"
+#include "Scene.h"
 
 Scene::Scene() {
 	this->mAssets = NULL;
