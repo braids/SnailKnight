@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "Assets.h"
+#include "Camera.h"
 #include "GameObject.h"
 #include "Timer.h"
 #include "Box2D\Box2D.h"
@@ -29,6 +30,7 @@ protected:
 	bool			mActive;	// Scene is active or inactive
 	SceneManager*	mManager;	// Parent scene manager pointer
 	Assets*			mAssets;	// Scene assets pointer
+	Camera			mCamera;
 	std::vector<GameObject*> mGameObjects;
 
 	// World physics

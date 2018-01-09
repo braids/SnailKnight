@@ -1,4 +1,6 @@
 #include "Assets.h"
+#include "Camera.h"
+#include "GameObject.h"
 #include "Graphics.h"
 #include "Scenes\Scene.h"
 #include "SceneManager.h"
@@ -38,7 +40,8 @@ void Level1::SceneStart() {
 	this->gravity.Set(0.0f, -8.0f);
 	this->world = new b2World(this->gravity);
 
-	this->LoadGameObjects(); 
+	this->LoadGameObjects();
+	this->mCamera.SetTargetGameObject(this->Player);
 }
 
 void Level1::HandleEvent(SDL_Event * Event) {
@@ -61,13 +64,26 @@ void Level1::HandleEvent(SDL_Event * Event) {
 }
 
 void Level1::Update(Uint32 timeStep) {
+	// Return to title screen if quitting
 	if (this->ExitToMainMenu)
 		this->mManager->StartScene(Scene_TitleScreen);
+	// Update player
 	this->Player->Update();
+	// Update world physics
 	this->world->Step(this->boxTimeStep * (float32)timeStep, this->velocityIterations, this->positionIterations);
+	// Update camera and camera target
+	this->mCamera.target->UpdateDrawRect(this->mCamera.CameraOffsetX(), this->mCamera.CameraOffsetY());
+	this->mCamera.CenterOnTarget();
+	// Update draw positions of game objects
 	for (int i = 0; i < (int) this->mGameObjects.size(); i++) {
-		this->mGameObjects[i]->UpdateDrawRect();
+		// Skip camera target
+		if (this->mGameObjects[i] == this->mCamera.target) 
+			continue;
+
+		this->mGameObjects[i]->UpdateDrawRect(this->mCamera.CameraOffsetX(), this->mCamera.CameraOffsetY());
 	}
+	// Set camera target to center
+	this->mCamera.target->SetDrawPos(Graphics::GAMEAREA_WIDTH / 2, Graphics::GAMEAREA_HEIGHT / 2);
 }
 
 void Level1::Render() {

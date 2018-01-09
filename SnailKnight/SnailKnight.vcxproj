@@ -171,6 +171,7 @@
     <ClCompile Include="GameObjects\StaticRectangle.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scenes\Level1.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="SnailKnight.h" />
     <ClInclude Include="Timer.h" />

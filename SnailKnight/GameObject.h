@@ -7,6 +7,7 @@
 #include "Box2D\Box2D.h"
 #include "PhysicsBody.h"
 
+// Forward dec classes
 class Position;
 class ImageData;
 class GameObject;
@@ -68,7 +69,8 @@ public:
 	void SetPosition(b2Vec2 _pos) { this->SetPosition(_pos); }
 	ImageData* GetImageData() { return &mImageData; }
 	PhysicsBody* GetBody() { return &mPhysicsBody; }
-	void UpdateDrawRect();
+	void SetDrawPos(Uint32 _x, Uint32 _y);
+	void UpdateDrawRect(Uint32 _offsetX, Uint32 _offsetY);
 	
 	virtual void Update() = 0;	
 };
