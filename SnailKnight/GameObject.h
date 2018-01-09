@@ -77,11 +77,20 @@ public:
 
 class Snail : public GameObject {
 public:
+	float32 ad = 1.0f;
+	float32 radius = 0.125f;
+	float32 density = 0.1f;
+	float32 friction = 0.8f;
+	float32 restitution = 0.0f;
+	float32 jumpForce = 0.015f;
 	bool RollLeft;
 	bool RollRight;
+	bool Jump;
 	const float32 RollTorque = 0.005f;
 
 	Snail(b2World* _world, b2Vec2 _pos, Assets::Image* _image);
+
+	bool ContactFloor();
 	void Update();
 };
 

@@ -14,6 +14,7 @@ Level1::Level1() {
 void Level1::LoadAssets() {
 	// Load images into Assets
 	this->mAssets->images.SnailKnight = { Assets::Instance()->GetTexture("snailknight_proto.png"), Graphics::CreateRect(35, 26, 0, 0) };
+	this->mAssets->images.b25x25 = { Assets::Instance()->GetTexture("b25x25.png"), Graphics::CreateRect(25, 25, 0, 0) };
 	this->mAssets->images.b100x25 = { Assets::Instance()->GetTexture("b100x25.png"), Graphics::CreateRect(100, 25, 0, 0) };
 }
 
@@ -37,7 +38,7 @@ void Level1::SceneStart() {
 	this->LoadAssets();
 	
 	this->ExitToMainMenu = false;
-	this->gravity.Set(0.0f, -8.0f);
+	this->gravity.Set(0.0f, -4.0f);
 	this->world = new b2World(this->gravity);
 
 	this->LoadGameObjects();
@@ -51,11 +52,13 @@ void Level1::HandleEvent(SDL_Event * Event) {
 		if (Event->key.keysym.sym == SDLK_r && Event->key.repeat == 0) this->SceneStart();
 		if (Event->key.keysym.sym == SDLK_LEFT)	this->Player->RollLeft = true;
 		if (Event->key.keysym.sym == SDLK_RIGHT) this->Player->RollRight = true;
+		if (Event->key.keysym.sym == SDLK_SPACE && Event->key.repeat != true) this->Player->Jump = true;
 		break;
 
 	case SDL_KEYUP:
 		if (Event->key.keysym.sym == SDLK_LEFT) this->Player->RollLeft = false;
 		if (Event->key.keysym.sym == SDLK_RIGHT) this->Player->RollRight = false;
+		if (Event->key.keysym.sym == SDLK_SPACE) this->Player->Jump = false;
 		break;
 
 	default:
@@ -89,6 +92,9 @@ void Level1::Update(Uint32 timeStep) {
 void Level1::Render() {
 	// Render graphics to buffer
 	// If I find any game logic in here, I'll slap myself silly
+	if (this->Player->ContactFloor())
+			this->mManager->GetGraphics()->DrawTexture(this->mAssets->images.b25x25.texture, this->mAssets->images.b25x25.rect);
+	
 	for (int i = 0; i < (int) this->mGameObjects.size(); i++) {
 		this->mManager->GetGraphics()->DrawTextureAtLocation(
 			this->mGameObjects[i]->GetImageData()->GetImage()->texture, 
