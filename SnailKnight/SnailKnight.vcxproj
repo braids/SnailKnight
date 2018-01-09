@@ -171,7 +171,7 @@
     <ClCompile Include="GameObjects\StaticRectangle.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scenes\Level1.cpp" />
     <ClCompile Include="SnailKnight.cpp" />

@@ -11,7 +11,7 @@ Level1::Level1() {
 
 void Level1::LoadAssets() {
 	// Load images into Assets
-	this->mAssets->images.SnailKnight = { Assets::Instance()->GetTexture("snailknight_proto.png"), Graphics::CreateRect(25, 25, 0, 0) };
+	this->mAssets->images.SnailKnight = { Assets::Instance()->GetTexture("snailknight_proto.png"), Graphics::CreateRect(35, 26, 0, 0) };
 	this->mAssets->images.b100x25 = { Assets::Instance()->GetTexture("b100x25.png"), Graphics::CreateRect(100, 25, 0, 0) };
 }
 
