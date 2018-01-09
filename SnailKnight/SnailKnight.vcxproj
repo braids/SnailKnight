@@ -231,6 +231,7 @@
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="SnailKnight.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>

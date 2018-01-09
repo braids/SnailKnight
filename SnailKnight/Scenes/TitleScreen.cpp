@@ -1,5 +1,6 @@
 #include "Assets.h"
 #include "Graphics.h"
+#include "Scenes\Scene.h"
 #include "SceneManager.h"
 
 TitleScreen::TitleScreen() {
