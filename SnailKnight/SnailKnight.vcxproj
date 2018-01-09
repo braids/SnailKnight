@@ -166,12 +166,17 @@
     <ClCompile Include="Box2D\Dynamics\Joints\b2WeldJoint.cpp" />
     <ClCompile Include="Box2D\Dynamics\Joints\b2WheelJoint.cpp" />
     <ClCompile Include="Box2D\Rope\b2Rope.cpp" />
+    <ClCompile Include="GameObjects\GameObject.cpp" />
+    <ClCompile Include="GameObjects\Snail.cpp" />
+    <ClCompile Include="GameObjects\StaticRectangle.cpp" />
+    <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scenes\Level1.cpp" />
     <ClCompile Include="SnailKnight.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="TitleScreen.cpp" />
+    <ClCompile Include="Scenes\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets.h" />
@@ -222,14 +227,17 @@
     <ClInclude Include="Box2D\Dynamics\Joints\b2WeldJoint.h" />
     <ClInclude Include="Box2D\Dynamics\Joints\b2WheelJoint.h" />
     <ClInclude Include="Box2D\Rope\b2Rope.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SnailKnight.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\img\100x25.png" />
-    <Image Include="res\img\25x25.png" />
+    <Image Include="res\img\b100x25.png" />
+    <Image Include="res\img\b25x25.png" />
+    <Image Include="res\img\c25x25.png" />
     <Image Include="res\img\snailknight_proto.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>

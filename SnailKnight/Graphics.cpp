@@ -141,12 +141,10 @@ SDL_Rect* Graphics::CenterTextureRectX(SDL_Texture * texture, int y)
 }
 
 void Graphics::DrawTexture(SDL_Texture * texture) {
-	//SDL_RenderCopy(mRenderer, texture, NULL, NULL);
 	Graphics::DrawTexture(texture, NULL, 0);
 }
 
 void Graphics::DrawTexture(SDL_Texture * texture, SDL_Rect* rect) {
-	//SDL_RenderCopy(mRenderer, texture, NULL, rect);
 	Graphics::DrawTexture(texture, rect, 0);
 }
 

@@ -30,9 +30,6 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TitleScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -172,6 +169,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Box2D\Rope\b2Rope.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Snail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\TitleScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Level1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\StaticRectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -332,15 +347,24 @@
     <ClInclude Include="Box2D\Box2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\snailknight_proto.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\img\25x25.png">
+    <Image Include="res\img\c25x25.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\img\100x25.png">
+    <Image Include="res\img\b100x25.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\img\b25x25.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

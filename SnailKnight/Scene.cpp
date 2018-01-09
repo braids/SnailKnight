@@ -16,5 +16,4 @@ Scene::~Scene() {
 void Scene::Init(SceneManager * manager) {
 	this->mAssets = Assets::Instance();
 	this->SetManager(manager);
-	this->LoadAssets();
 }

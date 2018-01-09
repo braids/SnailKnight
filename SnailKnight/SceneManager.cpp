@@ -36,6 +36,7 @@ bool SceneManager::Init() {
 
 	// Add scenes here
 	this->AddScene(new TitleScreen());
+	this->AddScene(new Level1());
 
 	// Initialize scenes
 	for (int i = 0; i < (int) this->sceneList.size(); i++)

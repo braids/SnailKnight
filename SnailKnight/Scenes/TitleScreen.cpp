@@ -10,12 +10,17 @@ TitleScreen::TitleScreen() {
 void TitleScreen::LoadAssets() {
 	// Load images into Assets
 	this->mAssets->images.SnailKnight = { Assets::Instance()->GetTexture("snailknight_proto.png"), Graphics::CreateRect(35, 26, 10, 10) };
-	this->mAssets->images.b25x25 = { Assets::Instance()->GetTexture("25x25.png"), Graphics::CreateRect(25, 25, 0, 0) };
-	this->mAssets->images.b100x25 = { Assets::Instance()->GetTexture("100x25.png"), Graphics::CreateRect(100, 25, 0, 0) };
+	this->mAssets->images.b25x25 = { Assets::Instance()->GetTexture("b25x25.png"), Graphics::CreateRect(25, 25, 0, 0) };
+	this->mAssets->images.b100x25 = { Assets::Instance()->GetTexture("b100x25.png"), Graphics::CreateRect(100, 25, 0, 0) };
+}
+
+void TitleScreen::LoadGameObjects() {
+
 }
 
 void TitleScreen::SceneStart() {
-	
+	this->LoadAssets();
+	this->StartLevel1 = false;
 }
 
 void TitleScreen::HandleEvent(SDL_Event * Event) {
@@ -23,7 +28,9 @@ void TitleScreen::HandleEvent(SDL_Event * Event) {
 	case SDL_KEYDOWN:
 		if (Event->key.keysym.sym == SDLK_ESCAPE) this->mManager->quitGame = true;
 
-		if (Event->key.keysym.sym == SDLK_r && Event->key.repeat == 0) SceneStart();
+		if (Event->key.keysym.sym == SDLK_SPACE) this->StartLevel1 = true;
+
+		if (Event->key.keysym.sym == SDLK_r && Event->key.repeat == 0) this->SceneStart();
 
 		break;
 
@@ -37,7 +44,8 @@ void TitleScreen::HandleEvent(SDL_Event * Event) {
 }
 
 void TitleScreen::Update(Uint32 timeStep) {
-
+	if (this->StartLevel1)
+		this->mManager->StartScene(Scene_Level1);
 }
 
 void TitleScreen::Render() {
