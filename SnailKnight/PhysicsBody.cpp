@@ -1,3 +1,5 @@
+#include <vector>
+#include "Box2D\Box2D.h"
 #include "PhysicsBody.h"
 
 PhysicsBody::PhysicsBody() {
@@ -54,6 +56,53 @@ float32 PhysicsBody::GetAngle() {
 		);
 
 	return 0.0f;
+}
+
+std::vector<b2Contact*> PhysicsBody::GetTouchContacts()
+{
+	// Initialize vector list of touching contacts
+	std::vector<b2Contact*> contactVector;
+
+	// If contacts are made, get all contacts
+	if (this->mBody->GetContactList() != nullptr) {
+		// Get first contact
+		b2Contact* currContact = this->mBody->GetContactList()->contact;
+
+		while (true) {
+			// If contact is touching, add to vector list
+			if (currContact->IsTouching())
+				contactVector.push_back(currContact);
+
+			// If next contact exists, get next contact
+			if (currContact->GetNext() != nullptr)
+				currContact = currContact->GetNext();
+			// If no more contacts exists, exit loop.
+			else
+				break;
+		}
+	}
+
+	// Return vector list of touching contacts
+	return contactVector;
+}
+
+b2Vec2 PhysicsBody::GetTouchVector() {
+	// Initialize average b2Vec2 of touching contacts
+	b2Vec2 avgTouchVector;
+	avgTouchVector.Set(0.0f, 0.0f);
+	
+	// Get vector list of touching contacts
+	std::vector<b2Contact*> touchContacts = this->GetTouchContacts();
+	
+	// Add all touching contact normals to avgTouchVector
+	for (int i = 0; i < touchContacts.size(); i++)
+		avgTouchVector += touchContacts[i]->GetManifold()->localNormal;
+
+	// Divide avgTouchVector by number of contacts made
+	avgTouchVector *= (1.0f / (float32)touchContacts.size());
+
+	// Return average b2Vec2 of touching contacts
+	return avgTouchVector;
 }
 
 void PhysicsBody::SetCircleShape(b2Vec2 _p, float32 _radius) {

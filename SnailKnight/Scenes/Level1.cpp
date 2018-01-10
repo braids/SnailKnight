@@ -53,12 +53,14 @@ void Level1::HandleEvent(SDL_Event * Event) {
 		if (Event->key.keysym.sym == SDLK_LEFT)	this->Player->RollLeft = true;
 		if (Event->key.keysym.sym == SDLK_RIGHT) this->Player->RollRight = true;
 		if (Event->key.keysym.sym == SDLK_SPACE && Event->key.repeat != true) this->Player->Jump = true;
+		if (Event->key.keysym.sym == SDLK_LSHIFT) this->Player->Cling = true;
 		break;
 
 	case SDL_KEYUP:
 		if (Event->key.keysym.sym == SDLK_LEFT) this->Player->RollLeft = false;
 		if (Event->key.keysym.sym == SDLK_RIGHT) this->Player->RollRight = false;
 		if (Event->key.keysym.sym == SDLK_SPACE) this->Player->Jump = false;
+		if (Event->key.keysym.sym == SDLK_LSHIFT) this->Player->Cling = false;
 		break;
 
 	default:
@@ -70,10 +72,13 @@ void Level1::Update(Uint32 timeStep) {
 	// Return to title screen if quitting
 	if (this->ExitToMainMenu)
 		this->mManager->StartScene(Scene_TitleScreen);
+	
 	// Update player
 	this->Player->Update();
 	// Update world physics
 	this->world->Step(this->boxTimeStep * (float32)timeStep, this->velocityIterations, this->positionIterations);
+	this->world->ClearForces();
+
 	// Update camera and camera target
 	this->mCamera.target->UpdateDrawRect(this->mCamera.CameraOffsetX(), this->mCamera.CameraOffsetY());
 	this->mCamera.CenterOnTarget();

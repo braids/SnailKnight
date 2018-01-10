@@ -40,7 +40,7 @@ protected:
 	float32 boxTimeStep = 1.0f / 600.0f;
 	// Physics iterations
 	int32 velocityIterations = 8;
-	int32 positionIterations = 3;
+	int32 positionIterations = 4;
 
 public:
 	// Scene ctor/dtor

@@ -2,6 +2,7 @@
 #ifndef _PHYSICSBODY_H_
 #define _PHYSICSBODY_H_
 
+#include <vector>
 #include "Box2D\Box2D.h"
 
 class PhysicsBody;
@@ -31,6 +32,9 @@ public:
 	float32 GetHeight();
 	float32 GetAngle();
 	b2Shape::Type GetShapeType() { return this->mShapeType; }
+	std::vector<b2Contact*> GetTouchContacts();
+
+	b2Vec2 GetTouchVector();
 
 	// Get shape object
 	b2Shape* GetShape();
