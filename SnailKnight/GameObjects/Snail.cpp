@@ -23,7 +23,7 @@ bool Snail::ContactFloor() {
 
 void Snail::Update() {
 	b2Vec2 touchVector;
-
+	
 	// If touching one or more static bodies, get average touch vector.
 	if (this->ContactFloor())
 		touchVector = this->GetBody()->GetTouchVector();
@@ -39,7 +39,7 @@ void Snail::Update() {
 	}
 
 	// Snail jump
-	if (this->Jump && touchVector.IsValid()) {
+	if (this->Jump && touchVector.Length() != 0) {
 		// Get jump vector
 		b2Vec2 jumpVector = touchVector;
 		jumpVector *= this->jumpForce;
@@ -52,7 +52,7 @@ void Snail::Update() {
 	}
 
 	// If snail isn't clinging, set default body attributes
-	if (!this->Cling || !touchVector.IsValid()) {
+	if (!this->Cling || touchVector.Length() == 0) {
 		// Reset physical attributes when not clinging
 		this->GetBody()->mBody->SetLinearDamping(0.0f);
 		this->GetBody()->mBody->SetAngularDamping(this->ad);
@@ -60,7 +60,7 @@ void Snail::Update() {
 	}
 
 	// Snail cling to surface
-	if (this->Cling && touchVector.IsValid()) {
+	if (this->Cling && touchVector.Length() != 0) {
 		// Set cling physical attributes
 		this->GetBody()->mBody->SetAngularDamping(8.0f);
 		this->GetBody()->mBody->SetLinearDamping(2.0f);
