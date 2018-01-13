@@ -28,7 +28,7 @@ void LevelBuilder::ScaleCurve(std::vector<b2Vec2>* _curve, float32 _scalarX, flo
 	// Define b2Vec2 iterator
 	std::vector<b2Vec2>::iterator it;
 	// Scale each element of vector by scalar
-	for (it = _curve->begin(); it == _curve->end(); it++) {
+	for (it = _curve->begin(); it != _curve->end(); it++) {
 		it->x *= _scalarX;
 		it->y *= _scalarY;
 	}
