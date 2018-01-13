@@ -46,20 +46,21 @@ float32 PhysicsBody::GetHeight() {
 }
 
 float32 PhysicsBody::GetAngle() {
-	if (this->GetShapeType() == b2Shape::e_circle)
-		return this->mBody->GetAngle();
-	
-	if (this->GetShapeType() == b2Shape::e_polygon)
+	if (this->GetShapeType() == b2Shape::e_polygon && this->mBody->GetType() != b2_dynamicBody)
 		return b2Atan2(
 			this->mPolygonShape.m_vertices[1].y - this->mPolygonShape.m_vertices[0].y, 
 			this->mPolygonShape.m_vertices[1].x - this->mPolygonShape.m_vertices[0].x
 		);
-
+	else
+		return this->mBody->GetAngle();
 	return 0.0f;
 }
 
-std::vector<b2Contact*> PhysicsBody::GetTouchContacts()
-{
+std::vector<b2Contact*> PhysicsBody::GetTouchContacts() {
+	return this->GetTouchContacts(this->mBody);
+}
+
+std::vector<b2Contact*> PhysicsBody::GetTouchContacts(b2Body* _body) {
 	// Initialize vector list of touching contacts
 	std::vector<b2Contact*> contactVector;
 
@@ -81,28 +82,53 @@ std::vector<b2Contact*> PhysicsBody::GetTouchContacts()
 				break;
 		}
 	}
-
+	
 	// Return vector list of touching contacts
 	return contactVector;
 }
 
 b2Vec2 PhysicsBody::GetTouchVector() {
 	// Initialize average b2Vec2 of touching contacts
-	b2Vec2 avgTouchVector;
-	avgTouchVector.Set(0.0f, 0.0f);
+	b2Vec2 avgTouchVector(0.0f, 0.0f);
 	
 	// Get vector list of touching contacts
 	std::vector<b2Contact*> touchContacts = this->GetTouchContacts();
 	
-	// Add all touching contact normals to avgTouchVector
-	for (int i = 0; i < touchContacts.size(); i++)
-		avgTouchVector += touchContacts[i]->GetManifold()->localNormal;
+	if (touchContacts.size() > 0) {
+		// Add all touching contact normals to avgTouchVector
+		for (int i = 0; i < touchContacts.size(); i++)
+			avgTouchVector += touchContacts[i]->GetManifold()->localNormal;
 
-	// Divide avgTouchVector by number of contacts made
-	avgTouchVector *= (1.0f / (float32)touchContacts.size());
+		// Divide avgTouchVector by number of contacts made
+		avgTouchVector *= (1.0f / (float32)touchContacts.size());
+	}
 
 	// Return average b2Vec2 of touching contacts
 	return avgTouchVector;
+}
+
+b2Shape* PhysicsBody::GetShape() {
+	switch (this->GetShapeType()) {
+	case b2Shape::e_chain:
+		return &(this->mChainShape);
+		break;
+	case b2Shape::e_circle:
+		return &(this->mCircleShape);
+		break;
+	case b2Shape::e_edge:
+		return &(this->mEdgeShape);
+		break;
+	case b2Shape::e_polygon:
+		return &(this->mPolygonShape);
+		break;
+	default:
+		return nullptr;
+		break;
+	}
+}
+
+void PhysicsBody::SetShapeType(b2Shape::Type _shape) {
+	this->mShapeType = _shape;
 }
 
 void PhysicsBody::SetCircleShape(b2Vec2 _p, float32 _radius) {
@@ -132,22 +158,44 @@ void PhysicsBody::SetFixtureDef(float32 _density, float32 _friction, float32 _re
 	this->mBody->CreateFixture(&(this->mFixtureDef));
 }
 
-b2Shape* PhysicsBody::GetShape() {
-	switch (this->GetShapeType()) {
-	case b2Shape::e_chain:
-		return &(this->mChainShape);
-		break;
-	case b2Shape::e_circle:
-		return &(this->mCircleShape);
-		break;
-	case b2Shape::e_edge:
-		return &(this->mEdgeShape);
-		break;
-	case b2Shape::e_polygon:
-		return &(this->mPolygonShape);
-		break;
-	default:
-		return nullptr;
-		break;
-	}
+// Apply Forces
+void PhysicsBody::ApplyForceToCenter(b2Vec2 _vector) {
+	this->mBody->ApplyForceToCenter(_vector, true);
+}
+
+
+void PhysicsBody::ApplyForceToCenter(b2Vec2 _vector, float32 _scalar) {
+	_vector *= _scalar;
+	this->ApplyForceToCenter(_vector);
+}
+
+void PhysicsBody::ApplyForceToCenter(float32 _angle, float32 _scalar) {
+	b2Rot rotation(_angle);
+	b2Vec2 vector(rotation.c, rotation.s);
+	this->ApplyForceToCenter(vector, _scalar);
+}
+
+void PhysicsBody::ApplyForceToCenter(float32 _angle) {
+	this->ApplyForceToCenter(_angle, 1.0f);
+}
+
+// Apply Linear Impulses
+void PhysicsBody::ApplyLinearImpulseToCenter(b2Vec2 _vector) {
+	this->mBody->ApplyLinearImpulseToCenter(_vector, true);
+}
+
+
+void PhysicsBody::ApplyLinearImpulseToCenter(b2Vec2 _vector, float32 _scalar) {
+	_vector *= _scalar;
+	this->ApplyLinearImpulseToCenter(_vector);
+}
+
+void PhysicsBody::ApplyLinearImpulseToCenter(float32 _angle, float32 _scalar) {
+	b2Rot rotation(_angle);
+	b2Vec2 vector(rotation.c, rotation.s);
+	this->ApplyLinearImpulseToCenter(vector, _scalar);
+}
+
+void PhysicsBody::ApplyLinearImpulseToCenter(float32 _angle) {
+	this->ApplyLinearImpulseToCenter(_angle, 1.0f);
 }

@@ -77,23 +77,52 @@ public:
 
 class Snail : public GameObject {
 public:
-	float32 ad = 2.0f;
-	float32 radius = 0.125f;
-	float32 density = 0.1f;
-	float32 friction = 0.8f;
-	float32 restitution = 0.0f;
-	float32 jumpForce = 0.015f;
+	// Standard body attributes
+	float32 linearDamping = 0.0f;
+	float32 angleDamping = 2.0f;
+	float32 gravityScale = 1.0f;
+	// Cling attributes
+	float32 clingLinearDamping = 2.0f;
+	float32 clingAngleDamping = 8.0f;
+	float32 clingGravityScale = 0.0f;
 	float32 clingForce = 0.002f;
-	bool RollLeft;
-	bool RollRight;
+	// Standing attributes
+	float32 standWidth = 0.35f;
+	float32 standHeight = 0.26f;
+	float32 standDensity = 0.1f;
+	float32 standFriction = 0.1f;
+	float32 standRestitution = 0.0f;
+	float32 standJumpForce = 0.0225f;
+	float32 standMoveForce = 0.03f;
+	// In shell attributes
+	float32 shellRadius = 0.14f;
+	float32 shellDensity = 0.1f;
+	float32 shellFriction = 0.8f;
+	float32 shellRestitution = 0.0f;
+	float32 shellJumpForce = 0.015f;
+	float32 shellRollTorque = 0.005f;
+
+	// State flags
+	bool InShell;
+	bool touchingFloor;
+	// Movement flags
+	bool MoveLeft;
+	bool MoveRight;
 	bool Jump;
 	bool Cling;
-	const float32 RollTorque = 0.005f;
-
+	
+	// Ctor
 	Snail(b2World* _world, b2Vec2 _pos, Assets::Image* _image);
 
+	// Funcs
 	bool ContactFloor();
 	void Update();
+	void SetStandAngle(b2Vec2 _touchVector);
+	void SetPhysicalAttributes();
+	void SetClingPhysicalAttributes();
+	void SetStandState();
+	void SetShellState();
+	void ResetFlags();
 };
 
 class StaticRectangle : public GameObject {

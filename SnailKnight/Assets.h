@@ -28,8 +28,10 @@ public:
 
 	struct Images {
 		Image SnailKnight;
+		Image SnailKnightShell;
 		Image b25x25;
 		Image b100x25;
+		Image c25x25;
 		// Placeholder Spritesheet images
 		Image SpriteSheet1D[1];
 		Image SpriteSheet2D[1][1];
