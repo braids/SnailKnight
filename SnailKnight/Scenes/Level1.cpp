@@ -14,6 +14,7 @@ Level1::Level1() {
 void Level1::LoadAssets() {
 	// Load images into Assets
 	this->mAssets->images.SnailKnight = { Assets::Instance()->GetTexture("snailknight_proto.png"), Graphics::CreateRect(35, 26, 0, 0) };
+	this->mAssets->images.SnailKnightShell = { Assets::Instance()->GetTexture("snailknight_inshell.png"), Graphics::CreateRect(28, 28, 0, 0) };
 	this->mAssets->images.b25x25 = { Assets::Instance()->GetTexture("b25x25.png"), Graphics::CreateRect(25, 25, 0, 0) };
 	this->mAssets->images.b100x25 = { Assets::Instance()->GetTexture("b100x25.png"), Graphics::CreateRect(100, 25, 0, 0) };
 }
@@ -50,15 +51,17 @@ void Level1::HandleEvent(SDL_Event * Event) {
 	case SDL_KEYDOWN:
 		if (Event->key.keysym.sym == SDLK_ESCAPE) this->ExitToMainMenu = true;
 		if (Event->key.keysym.sym == SDLK_r && Event->key.repeat == 0) this->SceneStart();
-		if (Event->key.keysym.sym == SDLK_LEFT)	this->Player->RollLeft = true;
-		if (Event->key.keysym.sym == SDLK_RIGHT) this->Player->RollRight = true;
-		if (Event->key.keysym.sym == SDLK_SPACE && Event->key.repeat != true) this->Player->Jump = true;
+		if (Event->key.keysym.sym == SDLK_LEFT)	this->Player->MoveLeft = true;
+		if (Event->key.keysym.sym == SDLK_RIGHT) this->Player->MoveRight = true;
+		if (Event->key.keysym.sym == SDLK_DOWN) this->Player->InShell = true;
+		if (Event->key.keysym.sym == SDLK_SPACE && Event->key.repeat > 0) this->Player->Jump = true;
 		if (Event->key.keysym.sym == SDLK_LSHIFT) this->Player->Cling = true;
 		break;
 
 	case SDL_KEYUP:
-		if (Event->key.keysym.sym == SDLK_LEFT) this->Player->RollLeft = false;
-		if (Event->key.keysym.sym == SDLK_RIGHT) this->Player->RollRight = false;
+		if (Event->key.keysym.sym == SDLK_LEFT) this->Player->MoveLeft = false;
+		if (Event->key.keysym.sym == SDLK_RIGHT) this->Player->MoveRight = false;
+		if (Event->key.keysym.sym == SDLK_DOWN) this->Player->InShell = false;
 		if (Event->key.keysym.sym == SDLK_SPACE) this->Player->Jump = false;
 		if (Event->key.keysym.sym == SDLK_LSHIFT) this->Player->Cling = false;
 		break;

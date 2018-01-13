@@ -2,7 +2,7 @@
 #ifndef _GRAPHICS_H_
 #define _GRAPHICS_H_
 
-#define M2P_DRAWSCALE 100.0f
+#define M2P_DRAWSCALE 50.0f
 
 #include <cstdio>
 #include <string>
@@ -28,10 +28,10 @@ private:
 	static float DScaleYRatio() { return ((float)SCREEN_HEIGHT) / ((float)GAMEAREA_HEIGHT); }
 
 public:
-	static const int GAMEAREA_WIDTH = 512;
-	static const int GAMEAREA_HEIGHT = 448;
-	static const int SCREEN_WIDTH = GAMEAREA_WIDTH * 2;//1372;//256;//512;//1372;
-	static const int SCREEN_HEIGHT = GAMEAREA_HEIGHT * 2;//1200;//224;//448;//1200;
+	static const int GAMEAREA_WIDTH = 320;
+	static const int GAMEAREA_HEIGHT = 180;
+	static const int SCREEN_WIDTH = GAMEAREA_WIDTH * 4;//1372;//256;//512;//1372;
+	static const int SCREEN_HEIGHT = GAMEAREA_HEIGHT * 4;//1200;//224;//448;//1200;
 
 	static Graphics* Instance();
 	static void Release();

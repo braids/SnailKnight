@@ -241,6 +241,7 @@
     <Image Include="res\img\b100x25.png" />
     <Image Include="res\img\b25x25.png" />
     <Image Include="res\img\c25x25.png" />
+    <Image Include="res\img\snailknight_inshell.png" />
     <Image Include="res\img\snailknight_proto.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
