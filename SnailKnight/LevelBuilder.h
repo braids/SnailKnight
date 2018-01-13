@@ -5,6 +5,12 @@
 #include "GameObject.h"
 #include "Box2D\Box2D.h"
 
+class BuildPosition {
+public:
+	b2Vec2 Point;
+	float32 Angle;
+};
+
 class LevelBuilder {
 public:
 	b2World* world;
@@ -14,7 +20,7 @@ public:
 	std::vector<StaticRectangle*> GenerateStatics(float32 _x, float32 _y);
 
 	std::vector<StaticRectangle*> GenerateStaticCurve(float32 _x, float32 _y, float32 _begin, float32 _arc, float32 _scalar);
-	std::vector<b2Vec2> GetCurve(float32 _begin, float32 _arc, Uint32 _step);
+	std::vector<BuildPosition> GetCurve(float32 _begin, float32 _arc, int _steps);
 	
 	void ScaleCurve(std::vector<b2Vec2>* _curve, float32 _scalar);
 	void ScaleCurve(std::vector<b2Vec2>* _curve, float32 _scalarX, float32 _scalarY);

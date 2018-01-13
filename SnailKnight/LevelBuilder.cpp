@@ -16,17 +16,21 @@ std::vector<StaticRectangle*> LevelBuilder::GenerateStaticCurve(float32 _x, floa
 	return std::vector<StaticRectangle*>();
 }
 
-std::vector<b2Vec2> LevelBuilder::GetCurve(float32 _begin, float32 _arc, Uint32 _steps)
+std::vector<BuildPosition> LevelBuilder::GetCurve(float32 _begin, float32 _arc, int _steps)
 {
 	// Allocate point vector
-	std::vector<b2Vec2> curvePoints(_steps);
+	std::vector<BuildPosition> curvePositions(_steps);
 	// Get angle length per step along arc
 	float32 stepAngle = _arc / (float32) (_steps - 1);
 	// Store each step along arc
-	for (int i = 0; i < _steps; i++)
-		curvePoints.push_back(this->CurvePos(_begin + (stepAngle * (float32) i)));
+	for (int i = 0; i < _steps; i++) {
+		BuildPosition buildPos;
+		buildPos.Angle = _begin + (stepAngle * (float32)i);
+		buildPos.Point = this->CurvePos(buildPos.Angle);
+		curvePositions.push_back(buildPos);
+	}	
 	// Return vector of points along arc
-	return curvePoints;
+	return curvePositions;
 }
 
 void LevelBuilder::ScaleCurve(std::vector<b2Vec2>* _curve, float32 _scalar) {
