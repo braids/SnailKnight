@@ -20,6 +20,20 @@ std::vector<b2Vec2> LevelBuilder::GenerateCurve(float32 _begin, float32 _arc, Ui
 	return curvePoints;
 }
 
+void LevelBuilder::ScaleCurve(std::vector<b2Vec2>* _curve, float32 _scalar) {
+	this->ScaleCurve(_curve, _scalar, _scalar);
+}
+
+void LevelBuilder::ScaleCurve(std::vector<b2Vec2>* _curve, float32 _scalarX, float32 _scalarY) {
+	// Define b2Vec2 iterator
+	std::vector<b2Vec2>::iterator it;
+	// Scale each element of vector by scalar
+	for (it = _curve->begin(); it == _curve->end(); it++) {
+		it->x *= _scalarX;
+		it->y *= _scalarY;
+	}
+}
+
 b2Vec2 LevelBuilder::CurvePos(float32 _angle) {
 	// Make rotation object
 	b2Rot rotation(_angle);
