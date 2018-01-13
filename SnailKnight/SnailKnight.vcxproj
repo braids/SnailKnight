@@ -169,6 +169,7 @@
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameObjects\Snail.cpp" />
     <ClCompile Include="GameObjects\StaticRectangle.cpp" />
+    <ClCompile Include="LevelBuilder.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="Box2D\Dynamics\Joints\b2WheelJoint.h" />
     <ClInclude Include="Box2D\Rope\b2Rope.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="LevelBuilder.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="SceneManager.h" />
