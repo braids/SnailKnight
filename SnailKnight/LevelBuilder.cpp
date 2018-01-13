@@ -1,5 +1,9 @@
 #include "LevelBuilder.h"
 
+LevelBuilder::LevelBuilder(b2World* _world) {
+	this->world = _world;
+}
+
 std::vector<StaticRectangle*> LevelBuilder::GenerateStatics(float32 _x, float32 _y)
 {
 	std::vector<StaticRectangle*> statics;
@@ -7,7 +11,12 @@ std::vector<StaticRectangle*> LevelBuilder::GenerateStatics(float32 _x, float32 
 	return statics;
 }
 
-std::vector<b2Vec2> LevelBuilder::GenerateCurve(float32 _begin, float32 _arc, Uint32 _steps)
+std::vector<StaticRectangle*> LevelBuilder::GenerateStaticCurve(float32 _x, float32 _y, float32 _begin, float32 _arc, float32 _scalar)
+{
+	return std::vector<StaticRectangle*>();
+}
+
+std::vector<b2Vec2> LevelBuilder::GetCurve(float32 _begin, float32 _arc, Uint32 _steps)
 {
 	// Allocate point vector
 	std::vector<b2Vec2> curvePoints(_steps);
@@ -31,6 +40,16 @@ void LevelBuilder::ScaleCurve(std::vector<b2Vec2>* _curve, float32 _scalarX, flo
 	for (it = _curve->begin(); it != _curve->end(); it++) {
 		it->x *= _scalarX;
 		it->y *= _scalarY;
+	}
+}
+
+void LevelBuilder::TransposeCurve(std::vector<b2Vec2>* _curve, float32 _x, float32 _y) {
+	// Define b2Vec2 iterator
+	std::vector<b2Vec2>::iterator it;
+	// Scale each element of vector by scalar
+	for (it = _curve->begin(); it != _curve->end(); it++) {
+		it->x += _x;
+		it->y += _y;
 	}
 }
 
