@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "GameObject.h"
 #include "Graphics.h"
+#include "LevelBuilder.h"
 #include "Scenes\Scene.h"
 #include "SceneManager.h"
 
@@ -33,15 +34,22 @@ void Level1::LoadGameObjects() {
 	this->AddRect(5.5f, 0.5f, 3.0f, 0.5f, 0.45f);
 	this->AddRect(7.0f, 2.0f, 3.0f, 0.5f, (float32)M_PI / 3.0f);
 	this->AddRect(7.75f, 4.75f, 3.0f, 0.5f, (float32)M_PI / 2.0f);
+	
+	std::vector<StaticRectangle*> builderStatics = *(this->mLevelBuilder->GenerateStaticCurve(3.5f, 5.0f, 0.1f, 0.0f, (float32) M_PI, 40, 3.0f, 3.0f));
+	std::vector<StaticRectangle*>::iterator iter = builderStatics.begin();
+	for (; iter != builderStatics.end(); iter++)
+		this->mGameObjects.push_back(*iter);
+		
 }
 
 void Level1::SceneStart() {
 	this->LoadAssets();
-	
+
 	this->ExitToMainMenu = false;
 	this->gravity.Set(0.0f, -4.0f);
 	this->world = new b2World(this->gravity);
 
+	this->mLevelBuilder = new LevelBuilder(this->world);
 	this->LoadGameObjects();
 	this->mCamera.SetTargetGameObject(this->Player);
 }
