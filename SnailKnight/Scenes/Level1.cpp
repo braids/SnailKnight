@@ -54,7 +54,7 @@ void Level1::HandleEvent(SDL_Event * Event) {
 		if (Event->key.keysym.sym == SDLK_LEFT)	this->Player->MoveLeft = true;
 		if (Event->key.keysym.sym == SDLK_RIGHT) this->Player->MoveRight = true;
 		if (Event->key.keysym.sym == SDLK_DOWN) this->Player->InShell = true;
-		if (Event->key.keysym.sym == SDLK_SPACE && Event->key.repeat > 0) this->Player->Jump = true;
+		if (Event->key.keysym.sym == SDLK_SPACE && Event->key.repeat == 0) this->Player->Jump = true;
 		if (Event->key.keysym.sym == SDLK_LSHIFT) this->Player->Cling = true;
 		break;
 
