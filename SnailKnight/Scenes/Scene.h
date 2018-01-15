@@ -11,6 +11,7 @@
 
 // Forward dec the SceneManager
 class SceneManager;
+class LevelBuilder;
 
 // Class forward decs
 class Scene;
@@ -32,6 +33,7 @@ protected:
 	Assets*			mAssets;	// Scene assets pointer
 	Camera			mCamera;
 	std::vector<GameObject*> mGameObjects;
+	LevelBuilder*	mLevelBuilder;
 
 	// World physics
 	b2Vec2 gravity;
