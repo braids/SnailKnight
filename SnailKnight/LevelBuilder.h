@@ -6,6 +6,9 @@
 #include "GameObject.h"
 #include "Box2D\Box2D.h"
 
+// Forward dec SceneName enum
+enum SceneName;
+
 class BuildPosition {
 public:
 	b2Vec2 Point;
@@ -28,7 +31,7 @@ public:
 
 	LevelBuilder(b2World* _world);
 
-	std::vector<StaticRectangle*> GenerateStatics(float32 _x, float32 _y);
+	std::vector<StaticRectangle*> GenerateStatics(SceneName _scene);
 	std::vector<StaticRectangle*>* GenerateStaticCurve(float32 _x, float32 _y, float32 _thickness, float32 _angleBegin, float32 _angleArc, int _angleSteps, float32 _curveScalarX, float32 _curveScalarY);
 	std::vector<b2Vec2*>* GetBuildPoints(std::vector<BuildPosition*> _buildPositions);
 	std::vector<BuildPosition*>* GetCurve(float32 _begin, float32 _arc, int _steps);

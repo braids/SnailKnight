@@ -2,14 +2,28 @@
 #include "Box2D\Box2D.h"
 #include "GameObject.h"
 #include "LevelBuilder.h"
+#include "Scenes\Scene.h"
 
 LevelBuilder::LevelBuilder(b2World* _world) {
 	this->world = _world;
 }
 
-std::vector<StaticRectangle*> LevelBuilder::GenerateStatics(float32 _x, float32 _y)
+std::vector<StaticRectangle*> LevelBuilder::GenerateStatics(SceneName _scene)
 {
 	std::vector<StaticRectangle*> statics;
+	std::vector< std::vector<StaticRectangle*>* > levelObjects;
+	std::vector< std::vector<StaticRectangle*>* >::iterator levelObjectsIter;
+
+	switch (_scene) {
+	case Scene_Level1:
+		levelObjects.push_back(GenerateStaticCurve(5.4f, 4.4f, 0.1f, 0.0f, (float32)M_PI / 2.0f, 9, 1.0f, 1.0f));
+		levelObjects.push_back(GenerateStaticCurve(3.4f, 4.0f, 0.1f, (float32)M_PI, (float32)M_PI, 18, 3.0f, 3.0f));
+		for (levelObjectsIter = levelObjects.begin(); levelObjectsIter != levelObjects.end(); levelObjectsIter++)
+			statics.insert(statics.end(), (*levelObjectsIter)->begin(), (*levelObjectsIter)->end());
+		break;
+	default:
+		break;
+	}
 	
 	return statics;
 }
