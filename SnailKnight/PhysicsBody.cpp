@@ -89,14 +89,24 @@ b2Vec2 PhysicsBody::GetTouchVector() {
 	
 	// Get vector list of touching contacts
 	std::vector<b2Contact*> touchContacts = this->GetTouchContacts();
-	
+	std::vector<b2Vec2> contactNormals(0);
+	b2Vec2 currNormal;
 	if (touchContacts.size() > 0) {
 		// Add all touching contact normals to avgTouchVector
-		for (int i = 0; i < touchContacts.size(); i++)
-			avgTouchVector += touchContacts[i]->GetManifold()->localNormal;
+		for (int i = 0; i < touchContacts.size(); i++) {
+			currNormal = touchContacts[i]->GetManifold()->localNormal;
+			if (i == 0)
+				contactNormals.push_back(currNormal);
+			else if(*std::find(contactNormals.begin(), contactNormals.end(), currNormal) == *contactNormals.end())
+				contactNormals.push_back(currNormal);
+		}
+		for (std::vector<b2Vec2>::iterator it = contactNormals.begin(); it != contactNormals.end(); it++)
+			avgTouchVector += *it;
+			//avgTouchVector += touchContacts[i]->GetManifold()->localNormal;
 
 		// Divide avgTouchVector by number of contacts made
-		avgTouchVector *= (1.0f / (float32)touchContacts.size());
+		//avgTouchVector *= (1.0f / (float32)touchContacts.size());
+		avgTouchVector *= (1.0f / (float32)contactNormals.size());
 	}
 
 	// Return average b2Vec2 of touching contacts

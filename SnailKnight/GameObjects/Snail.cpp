@@ -56,12 +56,8 @@ void Snail::Update() {
 				// Set cling physical attributes
 				this->SetClingPhysicalAttributes();
 
-				// Reduce cling force if touching more than one static body. It gets...too clingy.
-				if (this->GetBody()->GetTouchContacts().size() > 1)
-					this->GetBody()->ApplyLinearImpulseToCenter(touchVector, -this->clingForce * 0.01f);
 				// Apply cling force
-				else
-					this->GetBody()->ApplyLinearImpulseToCenter(touchVector, -this->clingForce);
+				this->GetBody()->ApplyLinearImpulseToCenter(touchVector, -this->clingForce);
 			}
 
 			break;
@@ -87,7 +83,7 @@ void Snail::Update() {
 
 void Snail::SetStandAngle(b2Vec2 _touchVector) {
 	float32 standAngle = 0.0f;
-	float32 standAngleExaggeration = 2.5f;
+	float32 standAngleExaggeration = 0.0f;
 	float32 standAngleTolerance = 0.4f;
 
 	// If touching floor, align to touching surface
@@ -105,7 +101,7 @@ void Snail::SetStandAngle(b2Vec2 _touchVector) {
 	if (!this->InShell && (modAngle < standAngle - standAngleTolerance || modAngle > standAngle + standAngleTolerance)) {
 		float32 nextAngle = modAngle + this->GetBody()->mBody->GetAngularVelocity() / 3.0f;
 		float32 totalRotation = standAngle - nextAngle;
-		this->GetBody()->mBody->ApplyTorque((totalRotation < standAngle ? -0.01f : 0.01f), true);
+		this->GetBody()->mBody->ApplyTorque((totalRotation < standAngle ? -0.02f : 0.02f), true);
 	}
 }
 

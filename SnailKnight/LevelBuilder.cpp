@@ -16,8 +16,8 @@ std::vector<StaticRectangle*> LevelBuilder::GenerateStatics(SceneName _scene)
 
 	switch (_scene) {
 	case Scene_Level1:
-		levelObjects.push_back(GenerateStaticCurve(5.4f, 4.4f, 0.1f, 0.0f, (float32)M_PI / 2.0f, 9, 1.0f, 1.0f));
-		levelObjects.push_back(GenerateStaticCurve(3.4f, 4.0f, 0.1f, (float32)M_PI, (float32)M_PI, 18, 3.0f, 3.0f));
+		levelObjects.push_back(GenerateStaticCurve(5.4f, 4.4f, 0.1f, 0.0f, (float32)M_PI / 2.0f, 5, 1.0f, 1.0f));
+		levelObjects.push_back(GenerateStaticCurve(3.4f, 4.0f, 0.1f, (float32)M_PI, (float32)M_PI, 10, 3.0f, 3.0f));
 		for (levelObjectsIter = levelObjects.begin(); levelObjectsIter != levelObjects.end(); levelObjectsIter++)
 			statics.insert(statics.end(), (*levelObjectsIter)->begin(), (*levelObjectsIter)->end());
 		break;
