@@ -25,7 +25,6 @@ std::vector<StaticRectangle*>* LevelBuilder::GenerateStaticCurve(float32 _x, flo
 	std::vector<b2Vec2*>* buildPoints = this->GetBuildPoints(*buildPos);
 	this->ScaleCurve(buildPoints, _curveScalarX, _curveScalarY);
 	this->TransposeCurve(buildPoints, _x, _y);
-	//this->SetBuildPoints(buildPos, *buildPoints);
 	
 	// Get rectangle size
 	float32 pointDistance = b2Distance(*(*buildPoints)[0], *(*buildPoints)[1]);
@@ -35,8 +34,8 @@ std::vector<StaticRectangle*>* LevelBuilder::GenerateStaticCurve(float32 _x, flo
 	std::vector<BuildPosition*>::iterator bPosIter = buildPos->begin();
 	std::vector<StaticRectangle*>::iterator staticIter = statics->begin();
 	for (; bPosIter != buildPos->end(); bPosIter++, staticIter++)
-		*staticIter = new StaticRectangle(this->world, *((*bPosIter)->Point), size, (*((*bPosIter)->Angle)) + ((float32)M_PI/2.0f), &Assets::Instance()->images.b100x25);
-
+		*staticIter = new StaticRectangle(this->world, (*bPosIter)->Point, size, (*bPosIter)->Angle + ((float32)M_PI/2.0f), &Assets::Instance()->images.b100x25);
+	
 	// Return vector list of static objects
 	return statics;
 }
@@ -51,20 +50,10 @@ std::vector<b2Vec2*>* LevelBuilder::GetBuildPoints(std::vector<BuildPosition*> _
 
 	// Copy points from BuildPosition vector list to buildPoints vector list
 	for (; bPosIter != _buildPositions.end(); bPosIter++, bPointIter++)
-		*bPointIter = (*bPosIter)->Point;//buildPoints->push_back((*iter)->Point);
+		*bPointIter =  &(*bPosIter)->Point;
 	
 	// Return point vector list
 	return buildPoints;
-}
-
-void LevelBuilder::SetBuildPoints(std::vector<BuildPosition*>* _buildPosition, std::vector<b2Vec2*> _buildPoints) {
-	// Init vector iterators
-	std::vector<BuildPosition*>::iterator bPositionIter = _buildPosition->begin();
-	std::vector<b2Vec2*>::iterator bPointIter = _buildPoints.begin();
-
-	// Set buildPosition points from buildPoint vector
-	for (; bPositionIter != _buildPosition->end() || bPointIter != _buildPoints.end(); bPositionIter++, bPointIter++)
-		(*bPositionIter)->Point = *bPointIter;
 }
 
 std::vector<BuildPosition*>* LevelBuilder::GetCurve(float32 _begin, float32 _arc, int _steps)
@@ -77,8 +66,8 @@ std::vector<BuildPosition*>* LevelBuilder::GetCurve(float32 _begin, float32 _arc
 	// Store each step along arc
 	for (int i = 0; i < _steps; i++) {
 		buildPos = new BuildPosition();
-		*buildPos->Angle = _begin + (stepAngle * (float32)i);
-		buildPos->Point = this->CurvePos(*buildPos->Angle);
+		buildPos->Angle = _begin + (stepAngle * (float32)i);
+		buildPos->Point = this->CurvePos(buildPos->Angle);
 		(*curvePositions)[i] = buildPos;
 	}	
 	// Return vector of points along arc
@@ -109,9 +98,9 @@ void LevelBuilder::TransposeCurve(std::vector<b2Vec2*>* _curve, float32 _x, floa
 	}
 }
 
-b2Vec2* LevelBuilder::CurvePos(float32 _angle) {
+b2Vec2 LevelBuilder::CurvePos(float32 _angle) {
 	// Make rotation object
 	b2Rot rotation(_angle);
 	// Get unit b2Vec2 based on angle
-	return new b2Vec2(rotation.c, rotation.s);
+	return b2Vec2(rotation.c, rotation.s);
 }

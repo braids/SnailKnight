@@ -35,11 +35,10 @@ void Level1::LoadGameObjects() {
 	this->AddRect(7.0f, 2.0f, 3.0f, 0.5f, (float32)M_PI / 3.0f);
 	this->AddRect(7.75f, 4.75f, 3.0f, 0.5f, (float32)M_PI / 2.0f);
 	
-	std::vector<StaticRectangle*> builderStatics = *(this->mLevelBuilder->GenerateStaticCurve(3.5f, 5.0f, 0.1f, 0.0f, (float32) M_PI, 40, 3.0f, 3.0f));
+	std::vector<StaticRectangle*> builderStatics = *(this->mLevelBuilder->GenerateStaticCurve(3.4f, 4.0f, 0.1f, (float32)M_PI, (float32) M_PI, 90, 3.0f, 3.0f));
 	std::vector<StaticRectangle*>::iterator iter = builderStatics.begin();
 	for (; iter != builderStatics.end(); iter++)
 		this->mGameObjects.push_back(*iter);
-		
 }
 
 void Level1::SceneStart() {
@@ -96,7 +95,7 @@ void Level1::Update(Uint32 timeStep) {
 	// Update draw positions of game objects
 	for (int i = 0; i < (int) this->mGameObjects.size(); i++) {
 		// Skip camera target
-		if (this->mGameObjects[i] == this->mCamera.target) 
+		if (this->mGameObjects[i] == this->mCamera.target)
 			continue;
 
 		this->mGameObjects[i]->UpdateDrawRect(this->mCamera.CameraOffsetX(), this->mCamera.CameraOffsetY());

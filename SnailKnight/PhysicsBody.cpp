@@ -20,12 +20,10 @@ float32 PhysicsBody::GetWidth() {
 		return this->mCircleShape.m_radius;
 	
 	if (this->GetShapeType() == b2Shape::e_polygon)
-		return std::abs(
-			b2Distance(
+		return b2Distance(
 				this->mPolygonShape.m_vertices[0], 
 				this->mPolygonShape.m_vertices[1]
-			) / 2.0f
-		);
+			) / 2.0f;
 
 	return 0.0f;
 }
@@ -35,12 +33,10 @@ float32 PhysicsBody::GetHeight() {
 		return this->mCircleShape.m_radius;
 	
 	if (this->GetShapeType() == b2Shape::e_polygon)
-		return std::abs(
-			b2Distance(
+		return b2Distance(
 				this->mPolygonShape.m_vertices[0], 
 				this->mPolygonShape.m_vertices[3]
-			) / 2.0f
-		);
+			) / 2.0f;
 
 	return 0.0f;
 }
