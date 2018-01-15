@@ -12,6 +12,7 @@ Snail::Snail(b2World* _world, b2Vec2 _pos, Assets::Image* _image) {
 	this->GetBody()->SetCircleShape(*(new b2Vec2(0.00f, 0.00f)), this->shellRadius);
 	this->GetBody()->SetPolygonShape(*(new b2Vec2(this->standWidth, this->standHeight)), 0.0f);
 	this->SetStandState();
+	this->GetBody()->mBody->SetUserData(this);
 }
 
 bool Snail::ContactFloor() {

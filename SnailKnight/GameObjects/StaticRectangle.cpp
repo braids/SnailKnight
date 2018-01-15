@@ -5,6 +5,7 @@ StaticRectangle::StaticRectangle(b2World* _world, b2Vec2 _pos, Assets::Image* _i
 	this->mImageData.SetImage(_image);
 	this->mPhysicsBody = *(new PhysicsBody(_world, _pos, 0.0f, b2Shape::e_polygon, false));
 	this->mPhysicsBody.SetPolygonFixtureDef(*(new b2Vec2(1.0f, 0.25f)), 90.0f, 0.0f, 1.0f, 0.0f);
+	this->GetBody()->mBody->SetUserData(this);
 }
 
 StaticRectangle::StaticRectangle(b2World* _world, b2Vec2 _pos, b2Vec2 _size, float32 _angle, Assets::Image* _image) {
@@ -12,6 +13,7 @@ StaticRectangle::StaticRectangle(b2World* _world, b2Vec2 _pos, b2Vec2 _size, flo
 	this->mImageData.SetImage(_image);
 	this->mPhysicsBody = *(new PhysicsBody(_world, _pos, 0.0f, b2Shape::e_polygon, false));
 	this->mPhysicsBody.SetPolygonFixtureDef(_size, _angle, 0.0f, 1.0f, 0.0f);
+	this->GetBody()->mBody->SetUserData(this);
 }
 
 void StaticRectangle::Update() {
